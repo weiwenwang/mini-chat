@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>mini-chat</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        ul, li {
+            list-style-type: none
+        }
+
+        body {
+            background-color: cornflowerblue;
+        }
+
+        .col-sm-8, .col-sm-3 {
+            background-color: #eee;
+        }
+
+        .col-sm-1 {
+            width: 5%;
+        }
+
+        #history {
+            height: 600px;
+            padding-top: 10px;
+        }
+
+        #chat-input {
+            margin-top: 10px;
+            width: 450px;
+            height: 80px;
+            resize: none;
+            outline-color: #ccc;
+            padding-left: 5px;
+        }
+
+        .p-left {
+            text-align: left;
+        }
+
+        .p-right {
+            text-align: right;
+        }
+
+        .chat-img {
+            width: 30px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .glyphicon {
+            cursor: pointer;
+            padding: 3px;
+            padding-bottom: 4px;
+        }
+
+        .container-content {
+            background: url("https://i.loli.net/2018/04/18/5ad6e60e3f9b5.png") repeat-x;
+            padding-top: 10px;
+        }
+
+        .friends-list {
+            height: 100px;
+            /*margin-top:;*/
+        }
+
+        #friends-list-id {
+            padding-left: 15px;
+        }
+
+        #friends-list-id img {
+            margin-right: 10px;
+        }
+
+        #friends-list-id li {
+            margin-top: 10px;
+        }
+
+        #friends {
+            padding-bottom: 15px;
+        }
+
+        #friends h1 {
+            margin-bottom: 30px;
+        }
+
+        #friends p {
+            line-height: 30px;
+        }
+
+        #notice {
+            margin-top: 10px;
+            margin-left: 5px;
+            height: 30px;
+        }
+
+        #count-person {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h1>Mini-chat</h1>
+    </div>
+</div>
+
+<div class="container container-content">
+    <div class="row">
+        <div class="col-xs-1 col-sm-8">
+            <div>
+                <div id="history">
+                    <!--<p class="p-left"><img src="https://i.loli.net/2018/04/18/5ad6ae4aeccd9.png"-->
+                    <!--class="chat-img img-circle">你好</p>-->
+                    <!--<p class="p-right">你好<img src="https://i.loli.net/2018/04/18/5ad6ae4aeccd9.png"-->
+                    <!--class="chat-img img-circle"></p>-->
+                    <!--<p class="p-left"><img src="https://i.loli.net/2018/04/18/5ad6ae4aeccd9.png"-->
+                    <!--class="chat-img img-circle">你好</p>-->
+                    <!--<p class="p-right">你好<img src="https://i.loli.net/2018/04/18/5ad6ae4aeccd9.png"-->
+                    <!--class="chat-img img-circle"></p>-->
+                </div>
+            </div>
+            <div>
+                <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+            </div>
+            <div>
+                <!--<div contenteditable="true" i></div>-->
+                <textarea name="a" id="chat-input">请输入你想说的话...</textarea>
+            </div>
+            <div>
+
+            </div>
+            <div id="notice">
+
+            </div>
+            <br><br>
+        </div>
+        <div class="col-xs-1 col-sm-1">
+        </div>
+
+        <div class="col-xs-1 col-sm-3" id="friends">
+            <h3>个人信息</h3>
+            <img src="https://i.loli.net/2018/04/18/5ad6ae4aeccd9.png" alt="虚竹" class="img-circle" id="my-img"
+                 width="50px;">
+            <span id="name"></span>
+            <h3>房间信息</h3>
+            当前在线 <span id="count-person">100</span> 人
+            <h3>有在直播间呢?</h3>
+            <div class="row friends-list">
+                <ul id="friends-list-id">
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    var wsServer = 'ws://192.168.206.129';
+    var websocket = new WebSocket(wsServer);
+    websocket.onopen = function (evt) {
+        console.log("Connected to WebSocket server.");
+    };
+
+    websocket.onclose = function (evt) {
+
+    };
+
+    websocket.onmessage = function (evt) {
+        var obj = jQuery.parseJSON(evt.data);
+        console.log(obj);
+        $.each(obj, function (index, val) {
+            var index = val.indexOf('_');
+            var msg_type = val.substring(0, index);
+            if (msg_type == 1) { // 个人信息
+                var user_info = jQuery.parseJSON(val.substring(index + 1));
+                $("#name").append(user_info.name);
+                $("#my-img").attr("src", user_info.img);
+            }
+            if (msg_type == 2) { // 聊天消息
+
+                var msg_info = jQuery.parseJSON(val.substring(index + 1));
+                $("#history").append(
+                    "<p class='p-left'><img src='" + msg_info.img + "' " + "class='chat-img img-circle'>" + msg_info.name + ': ' + msg_info.content + "</p>"
+                );
+            }
+            if (msg_type == 3) { // 通知(xx上线了)
+                $("#notice").html("<div id='notice_msg'>" + val.substring(index + 1) + "</div>");
+                setTimeout(function () {
+                    $("#notice_msg").hide(2000);
+                }, 3000);
+            }
+            if (msg_type == 4) { // 更新总人数
+                console.log("更新人数: " + val.substring(index + 1));
+                $("#count-person").html(val.substring(index + 1));
+            }
+            if (msg_type == 5) { // 添加列表
+                console.log("添加列表: " + val.substring(index + 1));
+                var all_user_info = jQuery.parseJSON(val.substring(index + 1));
+                $.each(all_user_info, function (index_person, person_info) {
+                    $("#friends-list-id").append(
+                        "<li><img src='" + person_info.img + "'  class='img-circle' width='30px;'><span>" + person_info.name + "</span></li>"
+                    );
+                });
+                console.log(all_user_info);
+            }
+        });
+    };
+
+    $("#chat-input").focusin(function () {
+        $("#chat-input").val("");
+
+    });
+    $("#chat-input").focusout(function () {
+        $("#chat-input").val("请输入你想说的话...");
+
+    });
+    $("body").keydown(function () {
+        if (event.keyCode == "13") {//keyCode=13是回车键
+            var content = $("#chat-input").val();
+            console.log(content);
+            websocket.send(content);
+            var my_img = $("#my-img").attr("src");
+            $("#history").append("<p class='p-right'>" + content + "<img src='" + my_img + "' class='chat-img img-circle'></p>");
+            $("#chat-input").val("请输入你想说的话...");
+            $("#chat-input").focus();
+            return false;
+        }
+    });
+
+
+</script>
+</body>
+</html>
+
